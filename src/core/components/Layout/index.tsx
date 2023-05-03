@@ -1,11 +1,10 @@
-import { Layout } from "antd"
+import { Layout } from 'antd'
+import styles from './styles.module.scss'
 
 interface ILayoutProps {
   content?: React.ReactNode
 }
 
 export const LayoutApp = ({ content }: ILayoutProps) => (
-  <Layout style={{ height: '100vh' }}>
-    {content}
-  </Layout>
+  <Layout className={styles.layout}>{content}</Layout>
 )

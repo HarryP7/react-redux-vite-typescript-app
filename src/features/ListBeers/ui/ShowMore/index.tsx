@@ -1,13 +1,14 @@
-import { Spin, Space, Button } from 'antd'
+import { Spin, Space } from 'antd'
+import styles from './styles.module.scss'
 
-export const ShowMore = () => {
+interface IShowMoreProps {
+  loading: boolean
+}
+
+export const ShowMore = ({ loading }: IShowMoreProps) => {
   return (
-    <Space direction='vertical' style={{ width: '100%' }}>
-      <Spin spinning={true}>
-        <Button type='primary' block>
-          Загружается еще
-        </Button>
-      </Spin>
+    <Space className={styles.showMoreContainer}>
+      <Spin spinning={loading} tip='Загружается еще' />
     </Space>
   )
 }

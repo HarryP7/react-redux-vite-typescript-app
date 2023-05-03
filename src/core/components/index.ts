@@ -1,4 +1,5 @@
-import { Error } from './Error'
+import { GlobalError } from './Error'
 import { LayoutApp } from './Layout'
+import { EndList } from './EndList'
 
-export { Error, LayoutApp }
+export { GlobalError, LayoutApp, EndList }

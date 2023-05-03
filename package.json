@@ -5,6 +5,7 @@
   "scripts": {
     "start": "nx serve",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "graph": "nx graph",
     "build": "nx build",
     "test": "nx test"
   },

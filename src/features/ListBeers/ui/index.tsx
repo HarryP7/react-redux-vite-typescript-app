@@ -1,8 +1,7 @@
-import { useCallback, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { Card, Spin, message } from 'antd'
+import { useCallback } from 'react'
+import { Card, Spin } from 'antd'
 import InfiniteScroll from 'react-infinite-scroller'
-import { Error } from 'core'
+import { EndList, useAppSelector } from 'core'
 import { useBeerData } from '../store'
 import { BeerItem } from './BeerItem'
 import { ShowMore } from './ShowMore'
@@ -10,9 +9,10 @@ import { HeaderBeer } from './HeaderBeer'
 import styles from './styles.module.scss'
 
 export const ListBeers = () => {
-  const { beerItems, loading, page, error } = useSelector(
-    (state: RootState) => state.beer
+  const { beerItems, loading, page, hasMore } = useAppSelector(
+    (state) => state.beer
   )
+  const error = useAppSelector((state) => state.error)
 
   const getBeerData = useBeerData()
 
@@ -21,35 +21,23 @@ export const ListBeers = () => {
     getBeerData({ page })
   }, [getBeerData, loading, page])
 
-  const [messageApi, messageHolder] = message.useMessage()
-
-  useEffect(() => {
-    if (error != null) {
-      messageApi.open({
-        content: <Error error={error} />,
-      })
-    }
-  }, [error, messageApi])
-
   return (
-    <>
-      {messageHolder}
-      <InfiniteScroll
-        loadMore={() => fetchItems()}
-        hasMore={!loading}
-        loader={<ShowMore />}
-        key='InfiniteScroll'
-      >
-        <Spin tip='Загрузка' spinning={error ? false : loading} size='large'>
-          <Card title={<HeaderBeer />}>
-            <div className={styles.listBeers}>
-              {beerItems.map((item) => (
-                <BeerItem item={item} key={`${item.id}-${item.name}`} />
-              ))}
-            </div>
-          </Card>
-        </Spin>
-      </InfiniteScroll>
-    </>
+    <InfiniteScroll
+      loadMore={() => fetchItems()}
+      hasMore={hasMore}
+      loader={<ShowMore loading={beerItems.length !== 0} />}
+      key='InfiniteScroll'
+    >
+      <Spin tip='Загрузка' spinning={error.message ? false : loading} size='large'>
+        <Card title={<HeaderBeer />}>
+          <div className={styles.listBeers}>
+            {beerItems.map((item) => (
+              <BeerItem item={item} key={`BeerItem-${item.id}-${item.name}`} />
+            ))}
+          </div>
+        </Card>
+      </Spin>
+      {!hasMore && <EndList />}
+    </InfiniteScroll>
   )
 }

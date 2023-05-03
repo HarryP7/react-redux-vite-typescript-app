@@ -7,7 +7,7 @@ interface Props {
   item: IBeer
 }
 
-export const BeerItem = ({ item }: Props) => {
+export const BeerItem: React.FC<Props> = ({ item }) => {
   return (
     <Card
       key={item.id}

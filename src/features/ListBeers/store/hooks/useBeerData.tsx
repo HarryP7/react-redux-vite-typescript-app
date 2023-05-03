@@ -1,12 +1,10 @@
-import { useAppDispatch } from 'core/hooks'
-import { axiosRequest } from 'core/helpers'
+import { useAppDispatch, useAppSelector, useAxiosRequest } from 'core/hooks'
 import { IBeer } from 'core'
 import { actions } from '../'
+import { actionsError } from 'core/components/Error'
 
 interface IBeerRequestProps {
-  page?: number
-  // элементов на страничке
-  perPage?: number
+  page: number
 }
 
 interface IGetResponseBeer {
@@ -14,15 +12,17 @@ interface IGetResponseBeer {
 }
 
 export function useBeerData() {
+  const { pageSize } = useAppSelector((state) => state.beer)
   const dispatch = useAppDispatch()
-  return ({ page = 1, perPage = 24 }: IBeerRequestProps) => {
+  const axiosRequest = useAxiosRequest<IGetResponseBeer>
+  return ({ page }: IBeerRequestProps) => {
     // записываем в стор, что идет загрузка данных с сервера
     dispatch(actions.setLoading(true))
-    axiosRequest<IGetResponseBeer>({
+    axiosRequest({
       request: '/beers',
       params: {
         page,
-        per_page: perPage,
+        per_page: pageSize,
       },
     })
     .then(({ data }: IGetResponseBeer) => {
@@ -33,7 +33,7 @@ export function useBeerData() {
     })
     .catch((error) => {
       // сохраняем ошибку в сторе, чтобы отобразить на фронте
-      dispatch(actions.setError(error))
+      dispatch(actionsError.setError(error))
     })
   }
 }
