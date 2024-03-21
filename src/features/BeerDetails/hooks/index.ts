@@ -1,0 +1,1 @@
+export { useBeerDetails } from './useBeerDetails'

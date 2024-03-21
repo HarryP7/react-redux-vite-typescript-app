@@ -1,11 +1,17 @@
 import { FC, PropsWithChildren } from 'react'
-import { Col, Row, Layout } from 'antd'
+import { Layout } from 'antd'
+import { NavigationBar } from 'widgets/NavigationBar'
+import { HomeIcon } from './HomeIcon'
 import styles from './styles.module.scss'
 
-export const Header: FC<PropsWithChildren> = ({ children }) => (
-  <Layout.Header className={styles.header}>
-    <Row>
-      <Col>{children}</Col>
-    </Row>
-  </Layout.Header>
-)
+export const Header: FC<PropsWithChildren> = ({ children }) => {
+  return (
+    <Layout.Header className={styles.headerContainer}>
+      <div>
+        <HomeIcon />
+        {children}
+      </div>
+      <NavigationBar />
+    </Layout.Header>
+  )
+}

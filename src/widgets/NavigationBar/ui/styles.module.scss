@@ -1,0 +1,21 @@
+.navigationContainer {
+  display: flex;
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    color: $primary-black-color;
+    margin-left: 20px;
+
+    .itemTitle {
+      line-height: 20px;
+    }
+
+    &:hover .icon,
+    &:hover .itemTitle {
+      color: $primary-color;
+    }
+  }
+}

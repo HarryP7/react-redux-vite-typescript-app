@@ -6,7 +6,7 @@ li.item {
     margin: 5px;
 
     .imageBeer {
-      width: calc(63vw / 3);
+      margin-top: 10px;
       max-width: 20vw;
       width: 100%;
       height: 24vh;
@@ -20,6 +20,11 @@ li.item {
       height: 100px;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+    .buttonContainer {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
     }
   }
 }

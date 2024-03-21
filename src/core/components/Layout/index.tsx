@@ -14,6 +14,8 @@ export const LayoutApp: FC<PropsWithChildren<ILayoutProps>> = ({
 }) => (
   <Layout className={styles.layout}>
     <Header>{header}</Header>
-    <Content>{children}</Content>
+    <Content className={styles.containerApp}>
+      {children}
+    </Content>
   </Layout>
 )

@@ -19,6 +19,8 @@ export interface IBeer {
   // сочетаемость с едой
   food_pairing: string[]
 
+  ingredients: any[]
+
   target_fg: number
   target_og: number
 }
