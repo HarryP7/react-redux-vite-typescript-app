@@ -1,10 +1,11 @@
-import { Col, Row } from 'antd'
+import { FC, PropsWithChildren } from 'react'
+import { Col, Row, Layout } from 'antd'
+import styles from './styles.module.scss'
 
-interface IHeaderProps {
-  content: React.ReactNode | string
-}
-export const Header = ({ content }: IHeaderProps) => (
-  <Row>
-    <Col>{content}</Col>
-  </Row>
+export const Header: FC<PropsWithChildren> = ({ children }) => (
+  <Layout.Header className={styles.header}>
+    <Row>
+      <Col>{children}</Col>
+    </Row>
+  </Layout.Header>
 )

@@ -1,8 +1,10 @@
 import { LayoutApp } from 'core/components'
-import { ListBeers } from 'features/ListBeers'
+import { HeaderBeer, ListBeers } from 'features/ListBeers'
 
 export const BeersPage = () => {
   return (
-    <LayoutApp content={<ListBeers />} />
+    <LayoutApp header={<HeaderBeer />}>
+      <ListBeers />
+    </LayoutApp>
   )
 }

@@ -1,21 +1,22 @@
+import { useCallback } from 'react'
 import { useAppDispatch, useAppSelector, useAxiosRequest } from 'core/hooks'
-import { IBeer } from 'core'
-import { actions } from '../'
 import { actionsError } from 'core/components/Error'
-
-interface IBeerRequestProps {
-  page: number
-}
+import { IBeer } from 'features/ListBeers/interfaces'
+import { actions } from '../'
 
 interface IGetResponseBeer {
   data: IBeer[]
 }
 
+export const getBeer = (state: RootState) => state.beer
+
 export function useBeerData() {
-  const { pageSize } = useAppSelector((state) => state.beer)
+  const { pageSize, page, loading } = useAppSelector(getBeer)
   const dispatch = useAppDispatch()
   const axiosRequest = useAxiosRequest<IGetResponseBeer>
-  return ({ page }: IBeerRequestProps) => {
+
+  return useCallback(() => {
+    if (loading) return
     // записываем в стор, что идет загрузка данных с сервера
     dispatch(actions.setLoading(true))
     axiosRequest({
@@ -25,15 +26,16 @@ export function useBeerData() {
         per_page: pageSize,
       },
     })
-    .then(({ data }: IGetResponseBeer) => {
-      //записываем в стор данные
-      dispatch(actions.setBeerList(data))
-      // и увеличиваем счетчик странички для запроса следующей
-      dispatch(actions.setPage(page + 1))
-    })
-    .catch((error) => {
-      // сохраняем ошибку в сторе, чтобы отобразить на фронте
-      dispatch(actionsError.setError(error))
-    })
-  }
+      .then(({ data }: IGetResponseBeer) => {
+        //записываем в стор данные
+        dispatch(actions.setBeerList(data))
+        // и увеличиваем счетчик странички для запроса следующей
+        dispatch(actions.setPage(page + 1))
+      })
+      .catch((error) => {
+        // сохраняем ошибку в сторе, чтобы отобразить на фронте
+        dispatch(actionsError.setError(error))
+        dispatch(actions.setLoading(false))
+      })
+  }, [loading, pageSize, page, axiosRequest, dispatch])
 }
