@@ -1,6 +1,5 @@
 import { Card, Image } from 'antd'
-import Meta from 'antd/es/card/Meta'
-import { IBeer } from 'core'
+import { IBeer } from 'features/ListBeers/interfaces'
 import styles from './styles.module.scss'
 
 interface Props {
@@ -9,24 +8,25 @@ interface Props {
 
 export const BeerItem: React.FC<Props> = ({ item }) => {
   return (
-    <Card
-      key={item.id}
-      id={`${item.id}-${item.name}`}
-      hoverable
-      className={styles.cardItem}
-      cover={
-        <Image
-          className={styles.imageBeer}
-          alt={item.tagline}
-          src={item.image_url}
+    <li className={styles.item}>
+      <Card
+        id={`${item.id}-${item.name}`}
+        hoverable
+        className={styles.cardItem}
+        cover={
+          <Image
+            className={styles.imageBeer}
+            alt={item.tagline}
+            src={item.image_url}
+          />
+        }
+      >
+        <Card.Meta
+          title={item.name}
+          description={item.description}
+          className={styles.text}
         />
-      }
-    >
-      <Meta
-        title={item.name}
-        description={item.description}
-        className={styles.text}
-      />
-    </Card>
+      </Card>
+    </li>
   )
 }

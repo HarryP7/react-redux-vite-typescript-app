@@ -1,41 +1,33 @@
-import { useCallback } from 'react'
-import { Card, Spin } from 'antd'
+import { Spin } from 'antd'
 import InfiniteScroll from 'react-infinite-scroller'
-import { EndList, useAppSelector } from 'core'
-import { useBeerData } from '../store'
+import { EndList, getError, useAppSelector } from 'core'
+import { getBeer, useBeerData } from '../store'
 import { BeerItem } from './BeerItem'
 import { ShowMore } from './ShowMore'
-import { HeaderBeer } from './HeaderBeer'
 import styles from './styles.module.scss'
 
 export const ListBeers = () => {
-  const { beerItems, loading, page, hasMore } = useAppSelector(
-    (state) => state.beer
-  )
-  const error = useAppSelector((state) => state.error)
-
+  const { beerItems, hasMore } = useAppSelector(getBeer)
+  const error = useAppSelector(getError)
   const getBeerData = useBeerData()
-
-  const fetchItems = useCallback(async () => {
-    if (loading) return
-    getBeerData({ page })
-  }, [getBeerData, loading, page])
 
   return (
     <InfiniteScroll
-      loadMore={() => fetchItems()}
+      loadMore={getBeerData}
       hasMore={hasMore}
-      loader={<ShowMore loading={beerItems.length !== 0} />}
+      loader={<ShowMore key='ShowMore' loading={beerItems.length !== 0} />}
       key='InfiniteScroll'
     >
-      <Spin tip='Загрузка' spinning={error.message ? false : loading} size='large'>
-        <Card title={<HeaderBeer />}>
-          <div className={styles.listBeers}>
-            {beerItems.map((item) => (
-              <BeerItem item={item} key={`BeerItem-${item.id}-${item.name}`} />
-            ))}
-          </div>
-        </Card>
+      <Spin
+        tip='Загрузка'
+        spinning={error.message ? false : beerItems.length === 0}
+        size='large'
+      >
+        <ul className={styles.listBeers}>
+          {beerItems.map((item) => (
+            <BeerItem item={item} key={item.id} />
+          ))}
+        </ul>
       </Spin>
       {!hasMore && <EndList />}
     </InfiniteScroll>

@@ -1,8 +1,9 @@
 import { ShoppingCartOutlined } from '@ant-design/icons'
+import styles from './styles.module.scss'
 
 export const HeaderBeer = () => (
   <>
-    <ShoppingCartOutlined />
-    <span> Список напитков </span>
+    <ShoppingCartOutlined className={styles.icon} />
+    <span className={styles.title}> Список напитков </span>
   </>
 )

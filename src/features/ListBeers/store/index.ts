@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { IBeer } from 'core/types'
-import { hooks } from './hooks'
+import { getBeer, hooks } from './hooks'
+import { IBeer } from '../interfaces'
 
 export interface IBeersState {
   beerItems: IBeer[]
@@ -43,3 +43,5 @@ export const { actions } = beerSlice
 export const beerReducer = beerSlice.reducer
 
 export const { useBeerData } = hooks
+
+export { getBeer }
