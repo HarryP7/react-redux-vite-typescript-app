@@ -1,3 +1,4 @@
 export const serversUrls = {
-  apiUrl: 'https://api.punkapi.com/v2',
+  apiUrlBeers: 'https://api.punkapi.com/v2',
+  apiUrlCoins: 'https://api.coinstats.app/public/v1',
 }

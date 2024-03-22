@@ -1,6 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
-import { getBeer, hooks } from './hooks'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { IBeer } from '../interfaces'
 
 export interface IBeersState {
@@ -20,8 +18,8 @@ const initialState: IBeersState = {
   pageSize: 24,
 }
 
-const beerSlice = createSlice({
-  name: 'beer',
+const beerListSlice = createSlice({
+  name: 'beerList',
   initialState,
   reducers: {
     setBeerList: (state, action: PayloadAction<IBeer[]>) => {
@@ -38,10 +36,6 @@ const beerSlice = createSlice({
   },
 })
 
-export const { actions } = beerSlice
+export const { actions } = beerListSlice
 
-export const beerReducer = beerSlice.reducer
-
-export const { useBeerData } = hooks
-
-export { getBeer }
+export const beerListReducer = beerListSlice.reducer

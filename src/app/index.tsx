@@ -1,15 +1,16 @@
 import { GlobalError } from 'core/components'
-import { BeersPage } from 'pages'
 import 'antd/dist/reset.css'
-import { withStore } from './providers/withStore'
+import { withProviders } from './providers'
+import { Router } from './router'
+import './main.scss'
 
 function App() {
   return (
     <>
       <GlobalError />
-      <BeersPage />
+      <Router />
     </>
   )
 }
 
-export default withStore(App)
+export default withProviders(App)
