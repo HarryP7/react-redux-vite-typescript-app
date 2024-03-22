@@ -1,3 +1,3 @@
 export { Router } from './Router'
 export { getPathWithId } from './helpers'
-export { RouterPaths } from './enums'
+export { routerPaths as RouterPaths } from './enums'

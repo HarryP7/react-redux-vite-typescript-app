@@ -4,17 +4,18 @@ import {
   RouterProvider,
   Route,
 } from 'react-router-dom'
-import { BeersPage, CartPage, BeerDetailsPage, NotFound, CoinsPage } from 'pages'
+import { HomePage, BeersPage, CartPage, BeerDetailsPage, NotFound, CoinsPage } from 'pages'
 import { Spin } from 'antd'
-import { RouterPaths } from './enums'
+import { routerPaths } from './enums'
 
 const routerPath = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path={RouterPaths.home} element={<BeersPage />} errorElement={<NotFound />} />
-      <Route path={RouterPaths.productId} element={<BeerDetailsPage />} />
-      <Route path={RouterPaths.cart} element={<CartPage />} />
-      <Route path={RouterPaths.coins} element={<CoinsPage />} />
+      <Route path={routerPaths.home} element={<HomePage />} errorElement={<NotFound />} />
+      <Route path={routerPaths.beers} element={<BeersPage />} />
+      <Route path={routerPaths.productId} element={<BeerDetailsPage />} />
+      <Route path={routerPaths.cart} element={<CartPage />} />
+      <Route path={routerPaths.coins} element={<CoinsPage />} />
     </>
   )
 )
